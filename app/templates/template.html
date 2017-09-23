@@ -1,38 +1,101 @@
 {% block body %}
- 
+
 <html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawOriginalChart);
+      google.charts.setOnLoadCallback(drawPredictionChart);
 
-      function drawChart() {
-  // Create and populate the data table.
- var options = {
-          title: 'Git Repo',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-  var years = {{year|safe}};
-  var total = {{count|safe}};
+     function drawPredictionChart() {
+       var options = {
+                title: 'Prediction of Repository for next 5 years of {{_selectedlanguage}} language',
+                curveType: 'function',
+                legend: { position: 'right' },
+                axes: {
+                  x: {
+                        0: {side: 'bottom'}
+                    }
+                },
+       series: {
+         0: { lineWidth: 5 },
+         1: { lineDashStyle: [4, 4], lineWidth: 5 },
+       },
+         colors: ['#e2431e', '#4374e0']
+      };
+      var pred_years = {{pred_year|safe}};
+      var original_count = {{count|safe}};
+      var pred_count = {{pred_count|safe}};
 
-  var data = new google.visualization.DataTable();
-  data.addColumn('string', 'years');
-  data.addColumn('number', '{{_selectedlanguage}}');
+      var pred_data = new google.visualization.DataTable();
+      pred_data.addColumn('string', 'Years');
+      pred_data.addColumn('number', 'Original_Count');
+      pred_data.addColumn('number', 'Predicted_Count');
 
-  for(i = 0; i < years.length; i++)
-    data.addRow([years[i], total[i]]);
+     for(i = 0; i < pred_years.length; i++)
+       pred_data.addRow([pred_years[i], original_count[i], pred_count[i]]);
 
-  // Create and draw the visualization.
-  new google.visualization.LineChart(document.getElementById('curve_chart')).
-    draw(data, options);
-}
-    </script>
+      var pred_chart = new google.charts.Line(document.getElementById('pred_chart'));
+      pred_chart.draw(pred_data, google.charts.Line.convertOptions(options));
+    }
+
+    function drawOriginalChart() {
+      var options = {
+               title: 'Repository of {{_selectedlanguage}} language',
+               curveType: 'function',
+               legend: { position: 'right' },
+        series: {
+          0: { lineWidth: 5 }
+        },
+        colors: ['#4374e0']
+      };
+      var years = {{year|safe}};
+      var total = {{count|safe}};
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Years');
+      data.addColumn('number', '{{_selectedlanguage}}');
+
+      for(i = 0; i < years.length; i++)
+        data.addRow([years[i], total[i]]);
+
+      var chart = new google.charts.Line(document.getElementById('prediction_chart'));
+      google.visualization.events.addListener(chart, 'select', function() { highlightLine(chart,data, options); });
+      chart.draw(data, google.charts.Line.convertOptions(options));
+        }
+
+    function highlightLine(chart,data,options) {
+        var selectedLineWidth = 4;
+        var selectedItem = chart.getSelection()[0];
+        for(var i in options.series) {
+            options.series[i].lineWidth = 1;
+        }
+        options.series[selectedItem.column-1].lineWidth = selectedLineWidth;
+        chart.draw(data, options);   //redraw
+    }
+  </script>
   </head>
   <body>
-    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+    <table class="columns" align="center">
+      <tr>
+        <td><div id="prediction_chart" style="border: 1px solid #ccc; width: 1100px; height: 600px"></div></td>
+      </tr>
+      <tr>
+        <td>
+            &nbsp;<!--you just need a space in a row-->
+        </td>
+      </tr>
+      <tr>
+        <td>
+            &nbsp;<!--you just need a space in a row-->
+        </td>
+      </tr>
+      <tr>
+        <td><div id="pred_chart" style="border: 1px solid #ccc; width: 1100px; height: 600px"></div></td>
+      </tr>
+    </table>
   </body>
 </html>
- 
+
 {% endblock %}
