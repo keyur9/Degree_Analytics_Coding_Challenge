@@ -1,6 +1,9 @@
 {% block body %}
 
 <html>
+  <div class="header">
+    <div class="Text" align="center"> <h2>Github Repository</h2> </div>
+  </div>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -94,8 +97,36 @@
       <tr>
         <td><div id="pred_chart" style="border: 1px solid #ccc; width: 1100px; height: 600px"></div></td>
       </tr>
+      <tr>
+        <td>
+            &nbsp;<!--you just need a space in a row-->
+        </td>
+      </tr>
+      <tr>
+        <td> Estimate Error: {{estimate_error}} </td>
+      </tr>
+      <tr>
+        <td>
+            &nbsp;<!--you just need a space in a row-->
+        </td>
+      </tr>
+      <tr>
+        <td> Goodness Fit: {{goodness_fit}} </td>
+      </tr>
+      <tr>
+        <td>
+            &nbsp;<!--you just need a space in a row-->
+        </td>
+      </tr>
+      <tr>
+        <td> Standard Deviation Error: {{standard_deviation_error}} </td>
+      </tr>
     </table>
+
   </body>
+  <div class="footer">
+    <div class="Text" align="center"> <h5>Build by Keyur, Powered by Flask</h5> </div>
+  </div>
 </html>
 
 {% endblock %}
