@@ -26,3 +26,5 @@ Create a python flask/django API that shows a chart and data projection for the 
   Generate html test report
 
     pytest --html=report.html
+
+![](200w_d.gif)

@@ -1,8 +1,6 @@
-{% block body %}
-
 <html>
   <div class="header">
-    <div class="Text" align="center"> <h2>Github Repository</h2> </div>
+    <div class="Text" align="center" width=100%> <h2>A chart and data projection for the amount of {{_selectedlanguage}} Repos that will be created over the next 5 years on Github</h2> </div>
   </div>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -23,12 +21,12 @@
                 },
        series: {
          0: { lineWidth: 5 },
-         1: { lineDashStyle: [4, 4], lineWidth: 5 },
+         1: { lineWidth: 5 },
        },
          colors: ['#e2431e', '#4374e0']
       };
       var pred_years = {{pred_year|safe}};
-      var original_count = {{count|safe}};
+      var original_count = {{current_count|safe}};
       var pred_count = {{pred_count|safe}};
 
       var pred_data = new google.visualization.DataTable();
@@ -48,13 +46,19 @@
                title: 'Repository of {{_selectedlanguage}} language',
                curveType: 'function',
                legend: { position: 'right' },
-        series: {
-          0: { lineWidth: 5 }
+               series: {
+                 0: { axis:'Original_Count' }
+               },
+               axes: {
+          // Adds labels to each axis; they don't have to match the axis names.
+              y: {
+                Original_Count: {label: 'Number of Repository'}
+              }
         },
         colors: ['#4374e0']
       };
-      var years = {{year|safe}};
-      var total = {{count|safe}};
+      var years = {{current_year|safe}};
+      var total = {{current_count|safe}};
 
       var data = new google.visualization.DataTable();
       data.addColumn('string', 'Years');
@@ -103,7 +107,7 @@
         </td>
       </tr>
       <tr>
-        <td> Estimate Error: {{estimate_error}} </td>
+        <td> <b>Estimate Error</b> which summarize the measure of accuracy of prediction is {{estimate_error}} </td>
       </tr>
       <tr>
         <td>
@@ -111,7 +115,7 @@
         </td>
       </tr>
       <tr>
-        <td> Goodness Fit: {{goodness_fit}} </td>
+        <td> <b>Goodness Fit</b> which summarize the discrepancy between observed value and value expected under the model in question is {{goodness_fit}} </td>
       </tr>
       <tr>
         <td>
@@ -119,7 +123,7 @@
         </td>
       </tr>
       <tr>
-        <td> Standard Deviation Error: {{standard_deviation_error}} </td>
+        <td> <b>Standard Deviation Error</b> which summarize degree to which indiviual within the sample differ from the sample mean is {{standard_deviation_error}} </td>
       </tr>
     </table>
 
@@ -128,5 +132,3 @@
     <div class="Text" align="center"> <h5>Build by Keyur, Powered by Flask</h5> </div>
   </div>
 </html>
-
-{% endblock %}
