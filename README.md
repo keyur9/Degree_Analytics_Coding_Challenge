@@ -32,3 +32,9 @@ Create a python flask/django API that shows a chart and data projection for the 
 ## Documentation
 
   * [View API Documentation](https://documenter.getpostman.com/view/1959462/degree_analytics_coding_challenge/6thy1NH)
+
+## Deployment using Docker
+
+Install Docker before you proceed with the following steps:
+
+    docker build -t degreeAnalytics . && docker run -it degreeAnalytics
