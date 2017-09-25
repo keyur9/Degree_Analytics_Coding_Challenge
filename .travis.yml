@@ -8,8 +8,12 @@ install:
 script:
   - pytest
 after_success:
-  - coverage run main.py
+  - coverage run tests/test_api.py
   - coverage run app/helpers.py
   - coverage run app/global.py
+  - coverage run packages/indicativeMetrics.py
+  - coverage run packages/noDataFound.py
+  - coverage run packages/projectionRepositoryCount.py
+  - coverage run packages/repositoryCount.py
   - codecov
   - bash <(curl -s https://codecov.io/bash)
