@@ -6,7 +6,7 @@ install:
   - pip install -r requirements.txt
   - pip install codecov
 script:
-  - python app/main.py
+  - python main.py
 after_success:
   - coverage run main.py
   - coverage run app/helpers.py
