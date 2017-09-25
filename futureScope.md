@@ -24,6 +24,10 @@ We could deploy Nginx proxy server in front of API server and have Nginx redirec
 
 We could make User Interface interactive and dynamic.
 
+#### List of languages
+
+We could use Github archived API to fetch the list of languages used on Github.
+
 ####  How to make model better?
 
 We could go to more granular level by fetching data on month/day basis instead of year to gather more data points. NOTE: This would be possible based on Github API rate fetching limit at that point in time.

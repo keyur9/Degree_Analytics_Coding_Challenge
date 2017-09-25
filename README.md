@@ -24,7 +24,7 @@ Create a python flask/django API that shows a chart and data projection for the 
 
     pytest
 
-  After tests have been run the results can be viewed while the api is running with the Pytest here
+  After tests have been run the results can be viewed by generating html test report.
 
     pytest --html=report.html
 
@@ -47,11 +47,11 @@ Projection of number of repository that will be created for R language in next 5
 
 ## Continuous Integration and Code Coverage
 
-* Using [Travis CI](https://travis-ci.org/) for Continous integration
-* Using [Codecov](https://codecov.io/) for Code Coverage
+* [Travis CI](https://travis-ci.org/) for Continous integration
+* [Codecov](https://codecov.io/) for Code Coverage
 
 ## Deployment using Docker
 
 Install Docker before you proceed with the following steps:
 
-    docker build -t degreeAnalytics . && docker run -it degreeAnalytics
+    docker build -t degreeanalytics . && docker run -it degreeanalytics
