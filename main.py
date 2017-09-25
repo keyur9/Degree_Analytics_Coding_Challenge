@@ -47,26 +47,6 @@ def not_found(error_description=None):
     return resp
 
 
-@app.errorhandler(globalVariable.okStatusCode)
-def no_data_found(error_description):
-    """Send message to user with Ok status."""
-    # Message to the user
-    message = {
-      "message": "Message from the API",
-      "errors": [
-        {
-            "message": error_description
-        }
-      ]
-    }
-    # Making the message looks good
-    resp = jsonify(message)
-    # Sending OK response
-    resp.status_code = globalVariable.okStatusCode
-    # Returning the object
-    return resp
-
-
 @app.route("/api/v1.0/projection/<language>", methods=[globalVariable.routeMethods])
 def index(language):
     """
@@ -87,7 +67,7 @@ def index(language):
         repositoryData = packages.getRepositoryCount(str(_selectedlanguage))
         if not repositoryData:
             app.logger.error(globalVariable.noDataFetchError)
-            return no_data_found(globalVariable.noDataFetchError)
+            return packages.no_data_found(globalVariable.noDataFetchError)
         # Creating dictionary to store the data
         urlCount = collections.OrderedDict()
         # Iterating through the available data
@@ -116,7 +96,7 @@ def index(language):
         # Logging the error
         app.logger.error(globalVariable.languageError)
         # Returning the object
-        return no_data_found(globalVariable.languageError)
+        return packages.no_data_found(globalVariable.languageError)
 
 
 @app.route("/")
