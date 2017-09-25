@@ -17,7 +17,7 @@ Create a python flask/django API that shows a chart and data projection for the 
 
   Run the script
 
-    python app/main.py
+    python main.py
 
   The test automation suit is built on [Pytest](https://docs.pytest.org/en/latest/). To test run...
 
@@ -38,3 +38,14 @@ Create a python flask/django API that shows a chart and data projection for the 
 Install Docker before you proceed with the following steps:
 
     docker build -t degreeAnalytics . && docker run -it degreeAnalytics
+
+## Example of repository data charts and projection for R language
+
+Current repository data charts for R language
+
+![Data-Charts.png](./Data-Charts.png)
+
+Projection of number of repository that will be created for R language in next 5 years
+
+![Data-Projection.png](./Data-Projection.png)
+(Please hover over the labels to view the data points when running the application.)
