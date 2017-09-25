@@ -8,34 +8,48 @@ Created on Fri Sep 22 12:38:56 2017.
  over the next 5 years on Github (use the github api for retrieving data)
 """
 
-"""# Import Modules"""
-import os
 from flask import Flask, render_template, Response, jsonify
-from dateutil.relativedelta import relativedelta
 import collections
 import json
-import requests
-import dateutil.parser as parser
 import logging
-import numpy as np
 import imp
 import packages
 # Importing module
-module = imp.load_source('*', './app/helpers.py')
 globalVariable = imp.load_source('*', './app/global.py')
+module = imp.load_source('*', globalVariable.heplerFilePath)
+
 
 # Place where app is defined
 app = Flask(__name__, template_folder=globalVariable.tmplDir)
 
-
 """Creating app.log file for logging purpose."""
-app.logger.addHandler(logging.FileHandler('app.log'))
+app.logger.addHandler(logging.FileHandler(globalVariable.logFileName))
 app.logger.setLevel(logging.INFO)
 
 
-@app.errorhandler(globalVariable.statusCode)
-def not_found(error_description):
-    """Handling error in case of unexpected requests."""
+@app.errorhandler(globalVariable.notFoundStatusCode)
+def not_found(error_description=None):
+    """Send message to user with notFound 404 status."""
+    # Message to the user
+    message = {
+      "message": "Message from the API",
+      "errors": [
+        {
+            "message": "This route is not currently supported. Please refer API documentation."
+        }
+      ]
+    }
+    # Making the message looks good
+    resp = jsonify(message)
+    # Sending OK response
+    resp.status_code = globalVariable.notFoundStatusCode
+    # Returning the object
+    return resp
+
+
+@app.errorhandler(globalVariable.okStatusCode)
+def no_data_found(error_description):
+    """Send message to user with Ok status."""
     # Message to the user
     message = {
       "message": "Message from the API",
@@ -48,12 +62,12 @@ def not_found(error_description):
     # Making the message looks good
     resp = jsonify(message)
     # Sending OK response
-    resp.status_code = globalVariable.statusCode
+    resp.status_code = globalVariable.okStatusCode
     # Returning the object
     return resp
 
 
-@app.route("/api/v1.0/projection/<language>", methods=['GET'])
+@app.route("/api/v1.0/projection/<language>", methods=[globalVariable.routeMethods])
 def index(language):
     """
     Function to show charts, perform data projection and render the charts.
@@ -73,7 +87,7 @@ def index(language):
         repositoryData = packages.getRepositoryCount(str(_selectedlanguage))
         if not repositoryData:
             app.logger.error(globalVariable.noDataFetchError)
-            return not_found(globalVariable.noDataFetchError)
+            return no_data_found(globalVariable.noDataFetchError)
         # Creating dictionary to store the data
         urlCount = collections.OrderedDict()
         # Iterating through the available data
@@ -102,7 +116,7 @@ def index(language):
         # Logging the error
         app.logger.error(globalVariable.languageError)
         # Returning the object
-        return not_found(globalVariable.languageError)
+        return no_data_found(globalVariable.languageError)
 
 
 @app.route("/")

@@ -1,4 +1,5 @@
-# Degree Analytics Coding Challenge
+# Degree Analytics Coding Challenge [![Build Status](https://travis-ci.org/keyur9/Degree_Analytics_Coding_Challenge.svg?branch=master)](https://travis-ci.org/keyur9/Degree_Analytics_Coding_Challenge) [![Coverage Status](https://codecov.io/gh/keyur9/Degree_Analytics_Coding_Challenge/branch/master/graph/badge.svg)](https://codecov.io/gh/keyur9/Degree_Analytics_Coding_Challenge)
+
 
 ## Requirements:
 
@@ -33,12 +34,6 @@ Create a python flask/django API that shows a chart and data projection for the 
 
   * [View API Documentation](https://documenter.getpostman.com/view/1959462/degree_analytics_coding_challenge/6thy1NH)
 
-## Deployment using Docker
-
-Install Docker before you proceed with the following steps:
-
-    docker build -t degreeAnalytics . && docker run -it degreeAnalytics
-
 ## Example of repository data charts and projection for R language
 
 Current repository data charts for R language
@@ -49,3 +44,14 @@ Projection of number of repository that will be created for R language in next 5
 
 ![Data-Projection.png](./Data-Projection.png)
 (Please hover over the labels to view the data points when running the application.)
+
+## Continuous Integration and Code Coverage
+
+* Using [Travis CI](https://travis-ci.org/) for Continous integration
+* Using [Codecov](https://codecov.io/) for Code Coverage
+
+## Deployment using Docker
+
+Install Docker before you proceed with the following steps:
+
+    docker build -t degreeAnalytics . && docker run -it degreeAnalytics

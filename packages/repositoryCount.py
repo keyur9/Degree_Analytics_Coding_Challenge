@@ -1,11 +1,7 @@
 """This module will get the count of the repository."""
 
-"""# Import Modules"""
-import os
-from flask import Flask, render_template, Response, jsonify
+from flask import Flask
 from dateutil.relativedelta import relativedelta
-import collections
-import json
 import requests
 import dateutil.parser as parser
 import logging

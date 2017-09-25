@@ -15,8 +15,12 @@ languageError = 'Current API support R and Python language search only.'
 # Message when multiple requests are send in less than a minute
 noDataFetchError = 'As per github API limitation, we can only to fetch limited data in 1 minute. Please try after 1 minute.'
 # Sending OK status
-statusCode = 200
+okStatusCode = 200
+# Sending Not found status
+notFoundStatusCode = 404
+# Response key which contain the total number of repositories
 responseKeyTotalCount = 'total_count'
+# Response key which contain the message from the api
 responseKeyMessage = 'message'
 # Based on start date fetching data till date which comes to 10 years
 relativeDeltaEndDate = 10
@@ -43,3 +47,9 @@ queryFilter = '+created:<'
 # tmpl Dir
 tmplDir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                         'templates')
+# Helper file
+heplerFilePath = './app/helpers.py'
+# Log file
+logFileName = 'app.log'
+# Routes methods
+routeMethods = 'GET'
